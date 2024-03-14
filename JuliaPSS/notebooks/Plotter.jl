@@ -1,8 +1,9 @@
 module Plotter
 
+
 using Plots
 using CSV, DataFrames
-using NPZ
+# using NPZ
 
 plotlyjs()
 

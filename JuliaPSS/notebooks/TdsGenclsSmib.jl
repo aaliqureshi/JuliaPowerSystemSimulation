@@ -106,7 +106,7 @@ function fx!(du,u,p,t)
     du[5] = v_3d/L2 - v_2d/L2 - R2*i_32d/L2 + Ω*i_32q
     du[6] = v_3q/L2 - v_2q/L2 - R2*i_32q/L2 - Ω*i_32d
 
-    # ## R3 equation
+    # # ## R3 equation
     # du[7] = v_3d/Rs - i_30d
     # du[8] = v_3q/Rs - i_30q
     
@@ -171,7 +171,7 @@ function affect2!(integrator)
     
     integrator.p[3] = 0
 
-    u_modified!(integrator,true)
+    u_modified!(integrator,false)
 end
 
 function affect3!(integrator)
@@ -243,7 +243,7 @@ function TDS_solve(params,u_pf,e_q_prime0)
     elseif param_dict["dt"] == "Fixed"
         @show "~~~~~ Using Fixed Time step ~~~~~"
         dT = param_dict["step_size"]
-        sol = solve(prob, Rodas5(), callback=cbs2, tstops=tstop2, dt = 50e-6, adaptive = false);
+        sol = solve(prob, Rodas5(), callback=cbs2, tstops=tstop2, dt = dT, adaptive = false);
         # sol = solve(prob, Trapezoid(), callback=cbs2, tstops=tstop2, dt = dT, adaptive = false);
         # sol = solve(prob, ImplicitEuler(), callback=cbs2, tstops=tstop2, dt = dT, adaptive = false);
         # sol = solve(prob, TRBDF2(), callback=cbs2, tstops=tstop2, dt = dT, adaptive = false);
@@ -304,8 +304,8 @@ function solve_init(params,p0::Array{Float64})
     i_30d0 = 0
     i_30q0 = 0
 
-    i_13d0 = -i_d0
-    i_13q0 = -i_q0
+    i_13d0 = i_d0
+    i_13q0 = i_q0
 
     # res = [δ0,ω0,i_d0,i_q0,v_1d0,v_1q0,v_3d0,v_3q0,i_13d0,i_13q0,i_30d0,i_30q0,i_32d0,i_32q0]
     

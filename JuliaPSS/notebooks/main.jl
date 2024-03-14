@@ -68,9 +68,9 @@ begin
     """
 
     param_dict = Dict([("Gen Model", "CLS"),
-                      ("Framework","DP Phasor"),
-                      ("dt", "Adaptive"),
-                      ("step_size",5e-6)])
+                      ("Framework","DP Full"),
+                      ("dt", "Fixed"),
+                      ("step_size",50e-6)])
 
     u0 = [v_10,v_2,θ_2]
 
@@ -127,15 +127,17 @@ begin
     4-Interpolate: To interpolate Diffeq results or not (1: Yes , 0: No) (If Yes, interpolates with the step size of 50e -6)
     5- overlay: To overlay graph onto a opened figure (like 'hold on' in Matlab) (1: Yes, 0: No (creates a new figure))
     """
-    plot_data("V1",sol,params,Interpolate=1,overlay=0)
-    plot_data("V3",sol,params,Interpolate=1,overlay=0)
-    plot_data("Omega",sol,params,Interpolate=0,overlay=0)
-    plot_data("theta1",sol,params,Interpolate=1,overlay=0)
+
+    # plot_data("V1",sol,params,Interpolate=0,overlay=0)
+    # plot_data("V3",sol,params,Interpolate=1,overlay=0)
+    # plot_data("Omega",sol,params,Interpolate=1,overlay=0)
+    # plot_data("theta1",sol,params,Interpolate=1,overlay=0)
     plot_data("theta3",sol,params,Interpolate=1,overlay=0)
     
 end
 
 # plot(sol,idxs=2)
+# plot_data("V3",sol,params,Interpolate=0,overlay=0)
 
 
 begin
@@ -150,9 +152,9 @@ begin
     iqq2_dp =  sol2[6,:]
 end
 plot(t_dp,idd1_dp)
-plot(t_dp,-1*idd2_dp)
+plot!(t_dp,idd2_dp)
 plot(t_dp,iqq1_dp)
-plot(t_dp,-1*iqq2_dp)
+plot!(t_dp,iqq2_dp)
 
 
 
